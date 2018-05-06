@@ -8,6 +8,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.saml.websso.WebSSOProfileConsumerImpl;
 
 @EnableWebSecurity
 @Configuration
@@ -50,6 +51,12 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
                     .and()
                 .identityProvider()
                 .metadataFilePath(this.metadataUrl);
+    }
+    
+    public WebSSOProfileConsumerImpl getWebSSOProfileConsumerImpl() {
+        WebSSOProfileConsumerImpl profileConsumer = new WebSSOProfileConsumerImpl();
+        profileConsumer.setMaxAuthenticationAge(5000);
+        return profileConsumer;
     }
 
 }
